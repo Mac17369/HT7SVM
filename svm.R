@@ -1,27 +1,22 @@
-#<<<<<<< HEAD
-#setwd("C:/Users/Kevin Macario/Desktop/Uvg/9no Semestre/Mineria de Datos/HT-6.-Regresi-n-log-stica/house-prices-advanced-regression-techniques")
+setwd("C:/Users/Kevin Macario/Desktop/Uvg/9no Semestre/Mineria de Datos/HT-6.-Regresi-n-log-stica/house-prices-advanced-regression-techniques")
 #datatest <- read.csv('test.csv')
 #datatrain <- read.csv('train.csv')
 #prices <- read.csv('sample_submission.csv')
-#=======
+
 library(caret)
 library(dummies)
 library(e1071)
-setwd("D:/AxelFolder/University/mineria_de_datos/HT-7.-SVM")
-#>>>>>>> c524c2669884e3fb364a8e078a53e10658a44119
-
+#setwd("D:/AxelFolder/University/mineria_de_datos/HT-6.-Regresi-n-log-stica")
 #setwd("C:/Users/LENOVO/Desktop/Clases/Minería de datos/Github/HT7SVM")
 
 porcentaje<-0.8
 set.seed(666)
 
-#<<<<<<< HEAD
-#=======
 datatest <- read.csv("house-prices-advanced-regression-techniques/test.csv")
 prices <- read.csv("house-prices-advanced-regression-techniques/sample_submission.csv")
 datatrain <- read.csv("house-prices-advanced-regression-techniques/train.csv")
 
-#>>>>>>> c524c2669884e3fb364a8e078a53e10658a44119
+
 datatestc = merge(x = datatest, y = prices, by = "Id")
 
 
@@ -93,4 +88,16 @@ modeloTuneado$best.model
 t <- proc.time()
 pred<-predict(modeloTuneado$best.model,newdata = test[,1:38], type = "response")
 proc.time()-t
+confusionMatrix(as.factor(test$grupo),as.factor(pred))
+
+### sigmoid
+
+modeloTuneadosigmoid<-tune.svm(as.factor(grupo)~., data=train, cost=c(0.01,0.5,1,1.5), gamma = c(0.01,1,1.5,11), coef0 = 0, kernel="sigmoid")
+
+modeloTuneadosigmoid$performances
+modeloTuneadosigmoid$best.model
+timeSig <- proc.time()
+pred<-predict(modeloTuneadosigmoid$best.model,newdata = test[,1:38], type = "response")
+timeSig<- proc.time()-timeSig
+timeSig
 confusionMatrix(as.factor(test$grupo),as.factor(pred))
