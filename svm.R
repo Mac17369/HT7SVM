@@ -86,4 +86,16 @@ pred<-predict(modeloTuneado$best.model,newdata = test[,1:38], type = "response")
 proc.time()-t
 confusionMatrix(as.factor(test$grupo),as.factor(pred))
 
+### sigmoid
+
+modeloTuneadosigmoid<-tune.svm(as.factor(grupo)~., data=train, cost=c(0.01,0.5,1,1.5), gamma = c(0.01,1,1.5,11), coef0 = 0, kernel="sigmoid")
+
+modeloTuneadosigmoid$performances
+modeloTuneadosigmoid$best.model
+timeSig <- proc.time()
+pred<-predict(modeloTuneadosigmoid$best.model,newdata = test[,1:38], type = "response")
+timeSig<- proc.time()-timeSig
+timeSig
+confusionMatrix(as.factor(test$grupo),as.factor(pred))
+
 
