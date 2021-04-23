@@ -1,4 +1,4 @@
-setwd("C:/Users/Kevin Macario/Desktop/Uvg/9no Semestre/Mineria de Datos/HT-6.-Regresi-n-log-stica/house-prices-advanced-regression-techniques")
+setwd("C:/Users/Kevin Macario/Desktop/Uvg/9no Semestre/Mineria de Datos/HT7SVM")
 #datatest <- read.csv('test.csv')
 #datatrain <- read.csv('train.csv')
 #prices <- read.csv('sample_submission.csv')
