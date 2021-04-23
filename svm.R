@@ -7,8 +7,6 @@ library(caret)
 library(dummies)
 library(e1071)
 #setwd("D:/AxelFolder/University/mineria_de_datos/HT-6.-Regresi-n-log-stica")
-
-
 #setwd("C:/Users/LENOVO/Desktop/Clases/Minería de datos/Github/HT7SVM")
 
 porcentaje<-0.8
@@ -83,6 +81,15 @@ pred<-predict(modeloTuneado$best.model,newdata = test[,1:38], type = "response")
 proc.time()-t
 confusionMatrix(as.factor(test$grupo),as.factor(pred))
 
+##### Radial basis
+modeloTuneado<-tune.svm(as.factor(grupo)~., data=train, cost=c(0.01,0.1,0.5,1,5), gamma =c(0.01,0.1,1,10), kernel="radial")
+modeloTuneado$performances
+modeloTuneado$best.model
+t <- proc.time()
+pred<-predict(modeloTuneado$best.model,newdata = test[,1:38], type = "response")
+proc.time()-t
+confusionMatrix(as.factor(test$grupo),as.factor(pred))
+
 ### sigmoid
 
 modeloTuneadosigmoid<-tune.svm(as.factor(grupo)~., data=train, cost=c(0.01,0.5,1,1.5), gamma = c(0.01,1,1.5,11), coef0 = 0, kernel="sigmoid")
@@ -94,5 +101,3 @@ pred<-predict(modeloTuneadosigmoid$best.model,newdata = test[,1:38], type = "res
 timeSig<- proc.time()-timeSig
 timeSig
 confusionMatrix(as.factor(test$grupo),as.factor(pred))
-
-
